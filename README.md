@@ -1,11 +1,11 @@
 # java-rest-client-library
 A JAVA Client Library for accessing the VisualVault REST API
 
-WELCOME TO THE JAVA VISUALVAULT REST API CLIENT LIBRARY
-
 REQUIREMENTS:
 
 java 7 or greater.
+
+WELCOME TO THE JAVA VISUALVAULT REST API CLIENT LIBRARY
 
 * This application serves as a method for accessing the Visual Vault REST API while using JAVA.
 
