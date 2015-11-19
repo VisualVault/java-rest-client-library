@@ -6,6 +6,29 @@ import java.io.IOException;
 import java.util.List;
 
 public class Docs extends Token{
+
+	// the deleteDoc method deletes a document by documentId.
+	public static String deleteDoc(String id) throws Exception{
+		Token token = new Token();
+		String baseUrl = token.getBaseUrl();
+		String endpoint = "/documents/";
+		String request = baseUrl + endpoint + id;
+		URL url = new URL(request);
+		String auth = token.getToken();
+
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        conn.setRequestMethod("DELETE");
+        conn.setRequestProperty("Content-Type", "application/JSON");
+        conn.setRequestProperty("Authorization", "Bearer " + auth);
+        conn.setDoOutput(true);
+
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+        String response = "";
+        for (int c = in.read(); c != -1; c = in.read())
+            response += (char)c;
+
+        return response;
+	}
 	// the getDocsFolder method will return all documents of a folder and all documents in the subfolders
 	// 0f the parent folder. folderName is the name of the parent folder. 
 	// if there are spaces in the folder path name use %20 to account for spaces.
@@ -61,7 +84,30 @@ public class Docs extends Token{
             response += (char)c;
 
         return response;
-}
+	}
+
+	// the getDocId method requests a document by documentId.
+	public static String getDocId(String id) throws Exception{
+		Token token = new Token();
+		String baseUrl = token.getBaseUrl();
+		String endpoint = "/documents/";
+		String request = baseUrl + endpoint + id;
+		URL url = new URL(request);
+		String auth = token.getToken();
+
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-Type", "application/JSON");
+        conn.setRequestProperty("Authorization", "Bearer " + auth);
+        conn.setDoOutput(true);
+
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+        String response = "";
+        for (int c = in.read(); c != -1; c = in.read())
+            response += (char)c;
+
+        return response;
+	}
       	
 	// the postDoc method creates a document. fill out variables below.
 	// this will create revision 1. use docId from this creation to upload a file.
