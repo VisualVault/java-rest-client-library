@@ -37,7 +37,7 @@ class Examples{
 		// OBJECTS
 		Docs d = new Docs(); 				//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Docs.java
 		Filez f = new Filez();				//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Filez.java
-		Folders folders = new Folders();	//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Folders.java
+		Folders folders = new Folders();		//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Folders.java
 		Sites sites = new Sites();			//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Sites.java
 		Users users = new Users();			//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Users.java
 
@@ -67,7 +67,7 @@ class Examples{
 		// documentState:	integer, 0 for unreleased, 1 for released  (draft, published)
 		// description:		string, any description you want to use
 		// revision:		any unique string value (required to be unique for this document only).  Typically 0,1,2,3, Etc.  If not unique document creation will fail.
-	    // fileName:		name you wish the file to be saved as in VisualVault i.e. "example.txt". Not important in this example because we are not attaching a file yet.
+		// fileName:		name you wish the file to be saved as in VisualVault i.e. "example.txt". Not important in this example because we are not attaching a file yet.
 		// indexFields: 	If the document has no index fields then pass in "{}" for the index fields parameter. 
 		//					If the document has index fields you must enter them as json serialized key value pairs.
 		// 					i.e. let indexFields = "{\"cool index field\":\"change you\",\"favorite foods\":\"mountain dew\"}". 
