@@ -34,14 +34,14 @@ class Examples{
 
 	// main method	 
 	public static void main(String[] args) throws Exception{	    
-	    // OBJECTS
-	    Docs d = new Docs(); 				//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Docs.java
-	    Filez f = new Filez();				//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Filez.java
-	    Folders folders = new Folders();	//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Folders.java
-	    Sites sites = new Sites();			//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Sites.java
-	    Users users = new Users();			//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Users.java
+		// OBJECTS
+		Docs d = new Docs(); 				//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Docs.java
+		Filez f = new Filez();				//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Filez.java
+		Folders folders = new Folders();	//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Folders.java
+		Sites sites = new Sites();			//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Sites.java
+		Users users = new Users();			//https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Users.java
 
-	    // Example Code
+		// Example Code
 		// IMPORTANT! The examples below use the classes located at https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints
 		// Each endpoint's .java file may contain additional functionality not shown in these examples
 		
@@ -50,13 +50,13 @@ class Examples{
 		// If a response does not include a data object then no object exists on the VV server and parseResponse will return an empty string.
 		
 		    	
-    	// CREATE A FOLDER OR GET A FOLDER (if path does not exist), Gets a Folder (if path does exist)
+		// CREATE A FOLDER OR GET A FOLDER (if path does not exist), Gets a Folder (if path does exist)
 		// Parameters are (folder path (string), folder description, allowRevisions (boolean true|false))
-	    String folderResponse = folders.postFolders("javaExampleFolder","description", true);	    
+		String folderResponse = folders.postFolders("javaExampleFolder","description", true);	    
 		
 		// GET FOLDER ID FROM SERVER RESPOSNE response is a JSON document)
-	    String folderId = parseResponse(folderResponse,"id");
-	    
+		String folderId = parseResponse(folderResponse,"id");
+		
 		// CREATE NEW DOCUMENT
 		// Document record must be created first and then a file is 'attached' to the Document using HTTP Post to the Files controller (example below).
 		// NOTE: document revision used in this example is "0".  Document revision can be any unique string value (unique across all revisions of the Document)
@@ -64,7 +64,7 @@ class Examples{
 		// Parameters:
 		// folderId:		folderId variable set above
 		// documentName:	any unique string value.  If value is not unique VV Server will append integer value.
-		// documentState:   integer, 0 for unreleased, 1 for released  (draft, published)
+		// documentState:	integer, 0 for unreleased, 1 for released  (draft, published)
 		// description:		string, any description you want to use
 		// revision:		any unique string value (required to be unique for this document only).  Typically 0,1,2,3, Etc.  If not unique document creation will fail.
 	    // fileName:		name you wish the file to be saved as in VisualVault i.e. "example.txt". Not important in this example because we are not attaching a file yet.
@@ -72,10 +72,10 @@ class Examples{
 		//					If the document has index fields you must enter them as json serialized key value pairs.
 		// 					i.e. let indexFields = "{\"cool index field\":\"change you\",\"favorite foods\":\"mountain dew\"}". 
 		String docResponse = d.postDoc(folderId,"javaExampleName",1,"description","0","nameMeLater","{}");
-	    
+		
 		// GET DOCUMENT ID FROM SERVER RESPONSE (response is a JSON document)
-	    String documentId = parseResponse(docResponse,"documentId");
-	    
+		String documentId = parseResponse(docResponse,"documentId");
+		
 		// GET DOCUMENT NAME FROM SERVER RESPONSE (response is a JSON document)		
 		String docName = parseResponse(docResponse,"name");
 		
@@ -96,9 +96,9 @@ class Examples{
 		//						or see	http://www.iana.org/assignments/media-types/media-types.xhtml
 		// charset:	 			Charset i.e. "UTF-8" in most cases.  
 
-	    string fileUploadResponse = f.postFile(documentId,docName,"1","java practice","Released","{}","upload.csv","upload.csv","text/csv", "UTF-8");
+		string fileUploadResponse = f.postFile(documentId,docName,"1","java practice","Released","{}","upload.csv","upload.csv","text/csv", "UTF-8");
 
-        // CHECK IF USER ACCOUNT EXISTS
+		// CHECK IF USER ACCOUNT EXISTS
 		// Important!  All user accounts belong to a 'Site'.  Most use cases can simply use the Site name 'Home' which is a system generated Site.
 		
 		String newUserName = "newUser@somecompany.com";
