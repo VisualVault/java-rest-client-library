@@ -19,6 +19,36 @@ import java.nio.file.Files;
 
  
 public class Filez extends Token{
+    // DOES NOT WORK WITH PDF (for now)
+    // getFile method downloads a file by documentId. 
+    // also pass in the the file path you wish to download the file to and 
+    // charset, the character encoding like UTF-8. 
+    public String getFile(String id, String filePath, String charset) throws Exception{
+        Token token = new Token();
+        String baseUrl = token.getBaseUrl();
+        String endpoint = "/files/";
+        String request = baseUrl + endpoint + id;
+        URL url = new URL(request);
+        String auth = token.getToken();
+
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-Type", "application/JSON");
+        conn.setRequestProperty("Authorization", "Bearer " + auth);
+        conn.setDoOutput(true);
+
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+        String response = "";
+        for (int c = in.read(); c != -1; c = in.read())
+            response += (char)c;
+
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+            new FileOutputStream(filePath),charset))){
+            writer.write(response);
+        }
+
+        return "";
+    }
 
     // the postFile method uploads a revision of a file.
     // docId is the documentId you are uploading the file for. 
@@ -108,6 +138,41 @@ public class Filez extends Token{
 
             return response;
             
+    }
+
+    // returns byte array of file by dhid. 
+    // use getFile above to download a file. 
+    public byte[] getFileByteArray(String id) throws Exception{
+        Token token = new Token();
+        String baseUrl = token.getBaseUrl();
+        String endpoint = "/files/";
+        String request = baseUrl + endpoint + id;
+        URL url = new URL(request);
+        String auth = token.getToken();
+
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-Type", "application/JSON");
+        conn.setRequestProperty("Authorization", "Bearer " + auth);
+        conn.setDoOutput(true);
+
+    
+        InputStream is = conn.getInputStream();
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int nRead;
+        
+        while ((nRead = is.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }   
+
+        buffer.flush();
+        byte[] byteArray = buffer.toByteArray();
+        System.out.println(byteArray.length);
+
+
+        return byteArray;
+     
     }
 
 

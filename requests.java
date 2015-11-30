@@ -26,8 +26,10 @@ class Requests{
 
 	    // FILES
 
+	    System.out.println(f.getFile("071A75FA-C27D-E511-BF02-008CFA482110","/home/jr/Desktop/test.csv","UTF-8"));
 	    System.out.print(f.postFile("8b9ca507-c288-e511-bf05-9c4e36b08790","javaDocDos","5","java practice",
 	    	"Released","{}","upload.csv","upload.csv","text/csv", "UTF-8"));
+	    System.out.println(f.getFileByteArray("9326124F-E592-E511-BF07-008CFA482110"));
 		
 		// FOLDERS
 
@@ -45,7 +47,7 @@ class Requests{
 		System.out.print(users.getUsersUsId("vault.config"));
 		System.out.print(users.getUsers());
 		System.out.print(users.getUsersId("5eefec33-ca71-e511-befe-98991b71acc0"));
-        System.out.print(users.postUsers("4d35d7ea-e383-e511-bf05-9c4e36b08790","javaMan4","J1J",
-          "LL1","j5@aol.com","password"));
+  		System.out.print(users.postUsers("4d35d7ea-e383-e511-bf05-9c4e36b08790","javaMan4","J1J",
+  			"LL1","j5@aol.com","password"));
     }
 }
