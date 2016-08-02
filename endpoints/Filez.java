@@ -19,11 +19,9 @@ import java.nio.file.Files;
 
  
 public class Filez extends Token{
-    // DOES NOT WORK WITH PDF (for now)
-    // getFile method downloads a file by documentId. 
+    // getFile method downloads a file by id
     // also pass in the the file path you wish to download the file to and 
-    // charset, the character encoding like UTF-8. 
-    public String getFile(String id, String filePath, String charset) throws Exception{
+    public void getFile(String id, String filePath) throws Exception{
         Token token = new Token();
         String baseUrl = token.getBaseUrl();
         String endpoint = "/files/";
@@ -37,17 +35,24 @@ public class Filez extends Token{
         conn.setRequestProperty("Authorization", "Bearer " + auth);
         conn.setDoOutput(true);
 
-        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-        String response = "";
-        for (int c = in.read(); c != -1; c = in.read())
-            response += (char)c;
+        InputStream is = conn.getInputStream();
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int nRead;
+        
+        while ((nRead = is.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }   
 
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-            new FileOutputStream(filePath),charset))){
-            writer.write(response);
-        }
+        buffer.flush();
+        byte[] byteArray = buffer.toByteArray();
 
-        return "";
+        File newFile = new File(filePath);
+        FileOutputStream f = new FileOutputStream(newFile);
+
+        f.write(byteArray);
+        f.close();
+        is.close();
     }
 
     // the postFile method uploads a revision of a file.
