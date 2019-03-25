@@ -1,4 +1,4 @@
-# java-rest-client-library
+# VisualVault java-rest-client-library
 A JAVA Client Library for accessing the VisualVault REST API
 
 REQUIREMENTS:
