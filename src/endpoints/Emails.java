@@ -9,7 +9,7 @@ public class Emails extends Token{
     // you may leave ccRecipients and subject as an empty string as needed.
     // for sending emails to multiple people use commas between the names
     // of the recipients and ccRecipients. 
-    public static String postEmails(String recipients, String ccRecipients, String subject, String body) throws Exception{
+    public String postEmails(String recipients, String ccRecipients, String subject, String body) throws Exception{
 		Token token = new Token();
 		String baseUrl = token.getBaseUrl();
 		String endpoint = "/emails";

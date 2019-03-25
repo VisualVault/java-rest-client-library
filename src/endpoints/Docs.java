@@ -8,7 +8,7 @@ import java.util.List;
 public class Docs extends Token{
 
 	// the deleteDoc method deletes a document by documentId.
-	public static String deleteDoc(String id) throws Exception{
+	public String deleteDoc(String id) throws Exception{
 		Token token = new Token();
 		String baseUrl = token.getBaseUrl();
 		String endpoint = "/documents/";
@@ -36,7 +36,7 @@ public class Docs extends Token{
 	// startDoc is the number in the list you would like to start from, and
 	// endDoc is the last number in the range of the document list you would like returned. 
 	// so startDoc of 10 and endDoc of 20 will respond with a list of documents from 10 through 20. 
-	public static String getDocsFolder(String folderName, int startDoc, int endDoc) throws Exception{
+	public String getDocsFolder(String folderName, int startDoc, int endDoc) throws Exception{
 		Token token = new Token();
 		int start = (startDoc - 1);
 		int end = (endDoc - start);
@@ -64,7 +64,7 @@ public class Docs extends Token{
 
 	// the getDocsName method will return a document by name.
 	// if you are in the UI, document Id is equivalent to name.  
-	public static String getDocsName(String name) throws Exception{
+	public String getDocsName(String name) throws Exception{
 		Token token = new Token();
 		String baseUrl = token.getBaseUrl();
 		String endpoint = "/documents?q=name%20eq%20%27";
@@ -87,7 +87,7 @@ public class Docs extends Token{
 	}
 
 	// the getDocId method requests a document by documentId.
-	public static String getDocId(String id) throws Exception{
+	public String getDocId(String id) throws Exception{
 		Token token = new Token();
 		String baseUrl = token.getBaseUrl();
 		String endpoint = "/documents/";
@@ -117,7 +117,7 @@ public class Docs extends Token{
 	// documentState is an int. 0 for unreleased, 1 for released, or 2 for pending.
 	// name is name of document, description is description of document. 
 	// fileName refers to the name you wish to name the file.
-	public static String postDoc(String folderId, String name, int documentState,
+	public String postDoc(String folderId, String name, int documentState,
 		String description, String revision, String fileName, String indexFields) throws Exception{
 	
 			boolean allowNoFile = true;

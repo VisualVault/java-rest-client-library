@@ -140,9 +140,10 @@ public class Filez extends Token{
             String response = "";
             for (int c = in.read(); c != -1; c = in.read())
                 response += (char)c;
-
-            return response;
             
+            System.out.println(response);
+            
+            return response;            
     }
 
     // returns byte array of file by dhid. 

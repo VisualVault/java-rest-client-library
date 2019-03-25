@@ -5,7 +5,7 @@ import java.util.*;
 // SITES CLASS
 public class Sites extends Token{
 	// getSites() returns a list of all sites.
-	public static String getSites() throws Exception{
+	public String getSites() throws Exception{
         Token token = new Token();
         String baseUrl = token.getBaseUrl();
         String endpoint = "/sites";
@@ -24,11 +24,13 @@ public class Sites extends Token{
         for (int c = in.read(); c != -1; c = in.read())
             response += (char)c;
 
+        System.out.println(response);
+        
         return response;        
 	}
 
 	// getSitesId() returns a site by siteId.
-	public static String getSitesId(String id) throws Exception{
+	public String getSitesId(String id) throws Exception{
         Token token = new Token();
         String baseUrl = token.getBaseUrl();
         String endpoint = "/sites/";
@@ -47,6 +49,8 @@ public class Sites extends Token{
         for (int c = in.read(); c != -1; c = in.read())
             response += (char)c;
 
+        System.out.println(response);
+        
         return response;        
 	}
 

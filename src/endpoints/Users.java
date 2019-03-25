@@ -5,7 +5,7 @@ import java.util.*;
 public class Users extends Token{
 
 	// the getUsersUsId method requests a user by userId. userId is the userId of the user.
-	public static String getUsersUsId(String userId) throws Exception{
+	public String getUsersUsId(String userId) throws Exception{
 		Token token = new Token();
 		String baseUrl = token.getBaseUrl();
 		String endpoint = "/users?q=userId%20eq%20%27";
@@ -24,11 +24,13 @@ public class Users extends Token{
         for (int c = in.read(); c != -1; c = in.read())
             response += (char)c;
 
+        System.out.println(response);
+        
         return response;		
 	}
 
     // the getUsers method returns all users. 
-    public static String getUsers() throws Exception{
+    public String getUsers() throws Exception{
         Token token = new Token();
         String baseUrl = token.getBaseUrl();
         String endpoint = "/users";
@@ -47,11 +49,13 @@ public class Users extends Token{
         for (int c = in.read(); c != -1; c = in.read())
             response += (char)c;
 
+        System.out.println(response);
+        
         return response;        
     }
 
     // getUsersId method requests a user by id. id is the id of the user. 
-    public static String getUsersId(String id) throws Exception{
+    public String getUsersId(String id) throws Exception{
         Token token = new Token();
         String baseUrl = token.getBaseUrl();
         String endpoint = "/users/";
@@ -70,6 +74,8 @@ public class Users extends Token{
         for (int c = in.read(); c != -1; c = in.read())
             response += (char)c;
 
+        System.out.println(response);
+        
         return response;        
     }
 
@@ -77,7 +83,7 @@ public class Users extends Token{
     // siteId is the siteId. userId is the userId name you wish to call the user. 
     // firstName, lastName are first name and last name. 
     // emailAddress is the email address, and password is the password
-	public static String postUsers(String siteId, String userId, String firstName,
+	public String postUsers(String siteId, String userId, String firstName,
         String lastName, String emailAddress, String password) throws Exception{
     		
             Token token = new Token();
@@ -93,6 +99,7 @@ public class Users extends Token{
             params.put("lastName", lastName);
             params.put("emailAddress", emailAddress);
             params.put("password", password);
+            params.put("mustChangePassword", "false");            
 
             StringBuilder postData = new StringBuilder();
             for (Map.Entry<String,Object> param : params.entrySet()) {
@@ -115,6 +122,8 @@ public class Users extends Token{
             for (int c = in.read(); c != -1; c = in.read())
                 response += (char)c;
 
+            System.out.println(response);
+            
             return response;
 	}
 

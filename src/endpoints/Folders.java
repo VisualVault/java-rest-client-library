@@ -6,7 +6,7 @@ public class Folders extends Token{
 
 	// searches a folder by folderpath. folderPath is the folderPath.
 	// if there are spaces in the folder path name use %20 to account for spaces.
-	public static String getFolders(String folderPath) throws Exception{
+	public String getFolders(String folderPath) throws Exception{
 		Token token = new Token();
 		String baseUrl = token.getBaseUrl();
 		String endpoint = "/folders?folderpath=";
@@ -25,11 +25,13 @@ public class Folders extends Token{
         for (int c = in.read(); c != -1; c = in.read())
             response += (char)c;
 
+        System.out.println(response);
+        
         return response;
 	}
 
 	// the getFoldersDocs method requests a list of documents in a folder by folderId. 
-	public static String getFoldersDocs(String folderId) throws Exception{
+	public String getFoldersDocs(String folderId) throws Exception{
 		Token token = new Token();
 		String baseUrl = token.getBaseUrl();
 		String endpoint = "/folders/";
@@ -48,13 +50,15 @@ public class Folders extends Token{
 	    for (int c = in.read(); c != -1; c = in.read())
 	        response += (char)c;
 
+	    System.out.println(response);
+	    
 	    return response;
 	}
 
 	// the postFolders method creates a folder.
 	// name is name of folder. description is description of folder.
 	// allowRevisions is a boolean either true or false. 
-	public static String postFolders(String name, String description, boolean allowRevisions) throws Exception{
+	public String postFolders(String name, String description, boolean allowRevisions) throws Exception{
 		Token token = new Token();
 		String baseUrl = token.getBaseUrl();
 		String endpoint = "/folders";
@@ -88,6 +92,8 @@ public class Folders extends Token{
         for (int c = in.read(); c != -1; c = in.read())
             response += (char)c;
 
+        System.out.println(response);
+        
         return response;
 	}
 

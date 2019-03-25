@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="endpoints/" kind="src" path="src"/>
+	<classpathentry kind="src" path="src/endpoints"/>
+	<classpathentry kind="lib" path="C:/Users/tod.olsen/git/java-rest-client-library/src/json-simple-1.1.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
