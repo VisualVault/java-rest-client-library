@@ -22,7 +22,7 @@ WELCOME TO THE JAVA VISUALVAULT REST API CLIENT LIBRARY
 NOTE:
 
 * Once you enter your credentials in Token.java, place Token.class and javaVisualVaultRest.jar in your classpath 
-to make requests with the library. If using the Eclipse project this should be pre configured.
+to make requests with the library. If using Eclipse you import the project after cloning the repository.
 
 * For using the parseResponse() method on examples.java, download json-simple-1.1.1.jar 
 @ https://code.google.com/p/json-simple/downloads/list and place the file in your classpath.
