@@ -5,13 +5,12 @@ import java.util.*;
 public class Users extends Token{
 
 	// the getUsersUsId method requests a user by userId. userId is the userId of the user.
-	public String getUsersUsId(String userId) throws Exception{
-		Token token = new Token();
-		String baseUrl = token.getBaseUrl();
+	public String getUsersUsId(String userId) throws Exception{		
+		String baseUrl = getBaseUrl();
 		String endpoint = "/users?q=userId%20eq%20%27";
 		String request = baseUrl + endpoint + userId + "%27";
 		URL url = new URL(request);
-		String auth = token.getToken();
+		String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -30,13 +29,12 @@ public class Users extends Token{
 	}
 
     // the getUsers method returns all users. 
-    public String getUsers() throws Exception{
-        Token token = new Token();
-        String baseUrl = token.getBaseUrl();
+    public String getUsers() throws Exception{        
+        String baseUrl = getBaseUrl();
         String endpoint = "/users";
         String request = baseUrl + endpoint;
         URL url = new URL(request);
-        String auth = token.getToken();
+        String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -55,13 +53,12 @@ public class Users extends Token{
     }
 
     // getUsersId method requests a user by id. id is the id of the user. 
-    public String getUsersId(String id) throws Exception{
-        Token token = new Token();
-        String baseUrl = token.getBaseUrl();
+    public String getUsersId(String id) throws Exception{        
+        String baseUrl = getBaseUrl();
         String endpoint = "/users/";
         String request = baseUrl + endpoint + id;
         URL url = new URL(request);
-        String auth = token.getToken();
+        String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -86,12 +83,11 @@ public class Users extends Token{
 	public String postUsers(String siteId, String userId, String firstName,
         String lastName, String emailAddress, String password) throws Exception{
     		
-            Token token = new Token();
-    		String baseUrl = token.getBaseUrl();
+            String baseUrl = getBaseUrl();
     		String endpoint = "/users?siteId=";
     		String request = baseUrl + endpoint + siteId;
     		URL url = new URL(request);
-    		String auth = token.getToken();
+    		String auth = getToken();
 
     		Map<String,Object> params = new LinkedHashMap<>();
             params.put("userId", userId);

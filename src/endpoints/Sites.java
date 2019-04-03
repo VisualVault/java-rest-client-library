@@ -5,13 +5,12 @@ import java.util.*;
 // SITES CLASS
 public class Sites extends Token{
 	// getSites() returns a list of all sites.
-	public String getSites() throws Exception{
-        Token token = new Token();
-        String baseUrl = token.getBaseUrl();
+	public String getSites() throws Exception{        
+        String baseUrl = getBaseUrl();
         String endpoint = "/sites";
         String request = baseUrl + endpoint;
         URL url = new URL(request);
-        String auth = token.getToken();
+        String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -30,13 +29,12 @@ public class Sites extends Token{
 	}
 
 	// getSitesId() returns a site by siteId.
-	public String getSitesId(String id) throws Exception{
-        Token token = new Token();
-        String baseUrl = token.getBaseUrl();
+	public String getSitesId(String id) throws Exception{        
+        String baseUrl = getBaseUrl();
         String endpoint = "/sites/";
         String request = baseUrl + endpoint + id;
         URL url = new URL(request);
-        String auth = token.getToken();
+        String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");

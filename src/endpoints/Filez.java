@@ -22,12 +22,11 @@ public class Filez extends Token{
     // getFile method downloads a file by id
     // also pass in the the file path you wish to download the file to and 
     public void getFile(String id, String filePath) throws Exception{
-        Token token = new Token();
-        String baseUrl = token.getBaseUrl();
+        String baseUrl = getBaseUrl();
         String endpoint = "/files/";
         String request = baseUrl + endpoint + id;
         URL url = new URL(request);
-        String auth = token.getToken();
+        String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -69,12 +68,11 @@ public class Filez extends Token{
     // mimeType is the mimeType of the file being uploaded. charset is the charset i.e. "UTF-8" in most cases. 
     public String postFile(String documentId, String name, String revision, String changeReason, String checkInDocumentState, 
         String indexFields, String fileName, String filePath, String mimeType, String charset) throws Exception{
-
-            Token token = new Token();
-            String baseUrl = token.getBaseUrl();
+            
+            String baseUrl = getBaseUrl();
             String endpoint = "/files";
             String request = baseUrl + endpoint;
-            String auth = token.getToken();
+            String auth = getToken();
             File fileUpload = new File(filePath);
             String boundary = Long.toHexString(System.currentTimeMillis()); 
             String CRLF = "\r\n"; 
@@ -149,12 +147,12 @@ public class Filez extends Token{
     // returns byte array of file by dhid. 
     // use getFile above to download a file. 
     public byte[] getFileByteArray(String id) throws Exception{
-        Token token = new Token();
-        String baseUrl = token.getBaseUrl();
+        
+        String baseUrl = getBaseUrl();
         String endpoint = "/files/";
         String request = baseUrl + endpoint + id;
         URL url = new URL(request);
-        String auth = token.getToken();
+        String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");

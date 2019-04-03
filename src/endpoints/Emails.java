@@ -10,12 +10,11 @@ public class Emails extends Token{
     // for sending emails to multiple people use commas between the names
     // of the recipients and ccRecipients. 
     public String postEmails(String recipients, String ccRecipients, String subject, String body) throws Exception{
-		Token token = new Token();
-		String baseUrl = token.getBaseUrl();
+		String baseUrl = getBaseUrl();
 		String endpoint = "/emails";
 		String request = baseUrl + endpoint;
 		URL url = new URL(request);
-		String auth = token.getToken();
+		String auth = getToken();
 
 		Map<String,Object> params = new LinkedHashMap<>();
         params.put("recipients", recipients);

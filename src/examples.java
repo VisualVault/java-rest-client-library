@@ -8,65 +8,6 @@ import org.json.simple.JSONValue;
 
 // EXAMPLES CLASS
 class Examples {
-	// method to parse a JSON response returning only a specific field value.
-	// pass in the JSON response to parse, and the desired fieldName.
-	// must import json-simple-1.1.1.jar to class path to use the JSON simple
-	// library.
-	@SuppressWarnings("unchecked")
-	public static String parseResponse(String response, String fieldName) throws Exception {
-		JSONParser parser = new JSONParser();
-		Object obj = parser.parse(response);
-		JSONObject jsonObject = (JSONObject) obj;
-		try {
-			JSONArray data = (JSONArray) jsonObject.get("data");
-			Iterator<JSONObject> iterator = data.iterator();
-			while (iterator.hasNext()) {
-				JSONObject responseObj = (JSONObject) iterator.next();
-				String fieldValue = (String) responseObj.get(fieldName);
-				return fieldValue;
-			}
-		} catch (Exception e) {
-			JSONObject data2 = (JSONObject) jsonObject.get("data");
-			String fieldValue = (String) data2.get(fieldName);
-			return fieldValue;
-		}
-		return "";
-	}
-
-	// method to parse a JSON response returning only a specific field value based
-	// upon a dependent field value in same object
-	// pass in the JSON response to parse, and the desired fieldName.
-	// must import json-simple-1.1.1.jar to class path to use the JSON simple
-	// library.
-	@SuppressWarnings("unchecked")
-	public static String parseResponse(String response, String fieldName1, String fieldName1Value, String fieldName2)
-			throws Exception {
-		JSONParser parser = new JSONParser();
-		Object obj = parser.parse(response);
-		JSONObject jsonObject = (JSONObject) obj;
-		try {
-			JSONArray data = (JSONArray) jsonObject.get("data");
-			Iterator<JSONObject> iterator = data.iterator();
-			while (iterator.hasNext()) {
-				JSONObject responseObj = (JSONObject) iterator.next();
-				String fieldValue1 = (String) responseObj.get(fieldName1);
-				String fieldValue = "";
-
-				if (fieldValue1.toLowerCase().equals(fieldName1Value.toLowerCase())) {
-					fieldValue = (String) responseObj.get(fieldName2);
-				}
-
-				if (fieldValue.length() > 0) {
-					return fieldValue;
-				}
-			}
-		} catch (Exception e) {
-			JSONObject data2 = (JSONObject) jsonObject.get("data");
-			String fieldValue = (String) data2.get(fieldName1);
-			return fieldValue;
-		}
-		return "";
-	}
 
 	// main method
 	public static void main(String[] args) throws Exception {
@@ -77,37 +18,50 @@ class Examples {
 		Sites sites = new Sites(); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Sites.java
 		Users users = new Users(); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Users.java
 		Forms forms = new Forms(); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Forms.java
-		
+		CustomQuery customQuery = new CustomQuery(); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/CustomQuery.java
 
 		// Example Code
 		// IMPORTANT! The examples below use the classes located at
-		// https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints
+		// https://github.com/VisualVault/java-rest-client-library
 		// Each endpoint's .java file may contain additional functionality not shown in
-		// these examples
 
-		// IMPORTANT! The parseResponse helper function used by the examples below may
-		// be use to get any field values returned by the VV server.
-		// Each API call returns a data object. Each data object's list of fields
+		// IMPORTANT! Each API call returns a data object. Each data object's list of fields
 		// documented here:
 		// http://developer.visualvault.com/api/v1/RestApi/Data/datatypeslist
 		// If a response does not include a data object then no object exists on the VV
 		// server and parseResponse will return an empty string.
 		
+		// GET CUSTOM QUERY RESULTS USING QUERY NAME
+		String queryName = "MyQueryName";
+		String queryFilter = "([Last Name] = 'Smith' and [First Name] = 'Jim' and [DOB] = '1992-08-08') OR SID = '12345'";
+		String queryResults = customQuery.getCustomQueryResultByName(queryName,queryFilter);
+		
+		
+
 		// GET FORM TEMPLATE BY NAME
-		// VisualVault uses "Forms" to build UI and database schema related to business objects
-		// To get form data records related to a business object we must first get the object's template id
-		// Query syntax is documented at http://developer.visualvault.com/api/v1/RestApi/Data/datafilters
-		// System field names for each API end point documented at http://developer.visualvault.com/api/v1/RestApi/Data/datatypeslist
+		// VisualVault uses "Forms" to build UI and database schema related to business
+		// objects
+		// To get form data records related to a business object we must first get the
+		// object's template id
 		
-		String formTemplateName = "Patient";
+		String formTemplateName = "Patient Registration Application"; //use a Form Template Name that exists in your instance of VisualVault
 		String formTemplateResponse = forms.getFormTemplateByName(formTemplateName);
-		
-		//get the form template's latest revision id
+
+		// get the form template's latest revision id
 		String formTemplateId = parseResponse(formTemplateResponse, "revisionId");
+
+		// use form template id to query for data
+		// Query syntax is documented at
+		// http://developer.visualvault.com/api/v1/RestApi/Data/datafilters
 		
-		//use form template id to query for data
 		String query = "[last Name] eq 'Doe' and [first Name] eq 'John'";
+		
+		//enter a list of fields to be returned in the response.  Use field names which exist in the Form Template
+		// System field names are always returned.  System field names documented at
+		// http://developer.visualvault.com/api/v1/RestApi/Data/datatypeslist
 		String fieldList = "last name,first name,gender,weight,height Inches,physical Address,physical City";
+		
+		//make http request for matching forms
 		String response = forms.getFormData(formTemplateId, query, fieldList);
 
 		// CREATE A FOLDER OR GET A FOLDER (if path does not exist), Gets a Folder (if
@@ -211,7 +165,7 @@ class Examples {
 				String password = "password";
 
 				// Create new user account using the site Id
-				users.postUsers(siteId, newUserName, firstName, lastName, emailAddress,	password);
+				users.postUsers(siteId, newUserName, firstName, lastName, emailAddress, password);
 
 				String verifyNewUserName = parseResponse(userAccountResponse, "userid");
 
@@ -221,6 +175,66 @@ class Examples {
 			}
 		}
 
+	}
+
+	// method to parse a JSON response returning only a specific field value.
+	// pass in the JSON response to parse, and the desired fieldName.
+	// must import json-simple-1.1.1.jar to class path to use the JSON simple
+	// library.
+	@SuppressWarnings("unchecked")
+	public static String parseResponse(String response, String fieldName) throws Exception {
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(response);
+		JSONObject jsonObject = (JSONObject) obj;
+		try {
+			JSONArray data = (JSONArray) jsonObject.get("data");
+			Iterator<JSONObject> iterator = data.iterator();
+			while (iterator.hasNext()) {
+				JSONObject responseObj = (JSONObject) iterator.next();
+				String fieldValue = (String) responseObj.get(fieldName);
+				return fieldValue;
+			}
+		} catch (Exception e) {
+			JSONObject data2 = (JSONObject) jsonObject.get("data");
+			String fieldValue = (String) data2.get(fieldName);
+			return fieldValue;
+		}
+		return "";
+	}
+
+	// method to parse a JSON response returning only a specific field value based
+	// upon a dependent field value in same object
+	// pass in the JSON response to parse, and the desired fieldName.
+	// must import json-simple-1.1.1.jar to class path to use the JSON simple
+	// library.
+	@SuppressWarnings("unchecked")
+	public static String parseResponse(String response, String fieldName1, String fieldName1Value, String fieldName2)
+			throws Exception {
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(response);
+		JSONObject jsonObject = (JSONObject) obj;
+		try {
+			JSONArray data = (JSONArray) jsonObject.get("data");
+			Iterator<JSONObject> iterator = data.iterator();
+			while (iterator.hasNext()) {
+				JSONObject responseObj = (JSONObject) iterator.next();
+				String fieldValue1 = (String) responseObj.get(fieldName1);
+				String fieldValue = "";
+
+				if (fieldValue1.toLowerCase().equals(fieldName1Value.toLowerCase())) {
+					fieldValue = (String) responseObj.get(fieldName2);
+				}
+
+				if (fieldValue.length() > 0) {
+					return fieldValue;
+				}
+			}
+		} catch (Exception e) {
+			JSONObject data2 = (JSONObject) jsonObject.get("data");
+			String fieldValue = (String) data2.get(fieldName1);
+			return fieldValue;
+		}
+		return "";
 	}
 
 }

@@ -9,12 +9,11 @@ public class Docs extends Token{
 
 	// the deleteDoc method deletes a document by documentId.
 	public String deleteDoc(String id) throws Exception{
-		Token token = new Token();
-		String baseUrl = token.getBaseUrl();
+		String baseUrl = getBaseUrl();
 		String endpoint = "/documents/";
 		String request = baseUrl + endpoint + id;
 		URL url = new URL(request);
-		String auth = token.getToken();
+		String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("DELETE");
@@ -37,16 +36,15 @@ public class Docs extends Token{
 	// endDoc is the last number in the range of the document list you would like returned. 
 	// so startDoc of 10 and endDoc of 20 will respond with a list of documents from 10 through 20. 
 	public String getDocsFolder(String folderName, int startDoc, int endDoc) throws Exception{
-		Token token = new Token();
 		int start = (startDoc - 1);
 		int end = (endDoc - start);
 		String offset = Integer.toString(start);
 		String limit = Integer.toString(end);
-		String baseUrl = token.getBaseUrl();
+		String baseUrl = getBaseUrl();
 		String endpoint = "/documents?q=folderpath%20like%20%27/";
 		String request = baseUrl + endpoint + folderName + "%%27&offset=" + offset + "&limit=" + limit;
 		URL url = new URL(request);
-		String auth = token.getToken();
+		String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -64,13 +62,12 @@ public class Docs extends Token{
 
 	// the getDocsName method will return a document by name.
 	// if you are in the UI, document Id is equivalent to name.  
-	public String getDocsName(String name) throws Exception{
-		Token token = new Token();
-		String baseUrl = token.getBaseUrl();
+	public String getDocsName(String name) throws Exception{		
+		String baseUrl = getBaseUrl();
 		String endpoint = "/documents?q=name%20eq%20%27";
 		String request = baseUrl + endpoint + name + "%27";
 		URL url = new URL(request);
-		String auth = token.getToken();
+		String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -88,12 +85,11 @@ public class Docs extends Token{
 
 	// the getDocId method requests a document by documentId.
 	public String getDocId(String id) throws Exception{
-		Token token = new Token();
-		String baseUrl = token.getBaseUrl();
+		String baseUrl = getBaseUrl();
 		String endpoint = "/documents/";
 		String request = baseUrl + endpoint + id;
 		URL url = new URL(request);
-		String auth = token.getToken();
+		String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -121,13 +117,12 @@ public class Docs extends Token{
 		String description, String revision, String fileName, String indexFields) throws Exception{
 	
 			boolean allowNoFile = true;
-			int fileLength = 0;
-			Token token = new Token();
-			String baseUrl = token.getBaseUrl();
+			int fileLength = 0;			
+			String baseUrl = getBaseUrl();
 			String endpoint = "/documents";
 			String request = baseUrl + endpoint;
 			URL url = new URL(request);
-			String auth = token.getToken();
+			String auth = getToken();
 
 			Map<String,Object> params = new LinkedHashMap<>();
 	        params.put("folderId", folderId);

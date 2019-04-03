@@ -7,12 +7,11 @@ public class Folders extends Token{
 	// searches a folder by folderpath. folderPath is the folderPath.
 	// if there are spaces in the folder path name use %20 to account for spaces.
 	public String getFolders(String folderPath) throws Exception{
-		Token token = new Token();
-		String baseUrl = token.getBaseUrl();
+		String baseUrl = getBaseUrl();
 		String endpoint = "/folders?folderpath=";
 		String request = baseUrl + endpoint + folderPath;
 		URL url = new URL(request);
-		String auth = token.getToken();
+		String auth = getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -32,12 +31,11 @@ public class Folders extends Token{
 
 	// the getFoldersDocs method requests a list of documents in a folder by folderId. 
 	public String getFoldersDocs(String folderId) throws Exception{
-		Token token = new Token();
-		String baseUrl = token.getBaseUrl();
+		String baseUrl = getBaseUrl();
 		String endpoint = "/folders/";
 		String request = baseUrl + endpoint + folderId + "/documents";
 		URL url = new URL(request);
-		String auth = token.getToken();
+		String auth = getToken();
 
 	    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	    conn.setRequestMethod("GET");
@@ -59,12 +57,11 @@ public class Folders extends Token{
 	// name is name of folder. description is description of folder.
 	// allowRevisions is a boolean either true or false. 
 	public String postFolders(String name, String description, boolean allowRevisions) throws Exception{
-		Token token = new Token();
-		String baseUrl = token.getBaseUrl();
+		String baseUrl = getBaseUrl();
 		String endpoint = "/folders";
 		String request = baseUrl + endpoint;
 		URL url = new URL(request);
-		String auth = token.getToken();
+		String auth = getToken();
 
 		Map<String,Object> params = new LinkedHashMap<>();
         params.put("name", name);
