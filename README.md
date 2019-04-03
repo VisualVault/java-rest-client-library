@@ -1,4 +1,4 @@
-# java-rest-client-library
+# VisualVault java-rest-client-library
 A JAVA Client Library for accessing the VisualVault REST API
 
 REQUIREMENTS:
@@ -9,22 +9,20 @@ WELCOME TO THE JAVA VISUALVAULT REST API CLIENT LIBRARY
 
 * This application simplifies HTTPS calls to the VisualVault REST API when using JAVA.
 
-* Start with the Token.java page and declare your constants on that page (your credentials).
+* Clone this repository and modify Token.java with your VisualVault instance credentials
 
-* By doing so, a token will be automatically generated for you each time you make a request with a method.
+* Example code for interacting with the VisualVault REST API is located in src/examples.java
 
-* Each endpoint has a dedicated class assigned to it. i.e. to see the methods for the files enpoint see Filez.java.
+* Each VisualVault endpoint has a java helper class which constructs the http GET,POST,PUT,DELETE calls
 
-* Inside each of the specified classes are helper functions to access the VisualVault REST API end points.
+* Not all VisualVault API endpoints are demonstrated in the examples.  See http://developer.visualvault.com/ for additonal endpoint functionality.  
 
-* Refer to the function parameters within each class for guidance on the data type to pass in.
-
-* See examples.java to get started.
+* Please contact support@visualvault.com if you need addtional examples
 
 NOTE:
 
-* Once you fill in your credentials on Token.java, place Token.class and javaVisualVaultRest.jar in your classpath 
-to make requests with the library. 
+* Once you enter your credentials in Token.java, place Token.class and javaVisualVaultRest.jar in your classpath 
+to make requests with the library. If using Eclipse you import the project after cloning the repository.
 
 * For using the parseResponse() method on examples.java, download json-simple-1.1.1.jar 
 @ https://code.google.com/p/json-simple/downloads/list and place the file in your classpath.
