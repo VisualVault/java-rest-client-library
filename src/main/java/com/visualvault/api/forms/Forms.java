@@ -1,20 +1,26 @@
+package com.visualvault.api.forms;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import com.visualvault.api.security.ClientCredentials;
+import com.visualvault.api.security.Token;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Forms extends Token {
 
+	public Forms(ClientCredentials credentials) {
+		super(credentials);
+	}
+
 	private String parseResponse(String response, String fieldName) throws Exception {
-		JSONParser parser = new JSONParser();
-		Object obj = parser.parse(response);
+		Object obj = new JSONObject(response);
 		JSONObject jsonObject = (JSONObject) obj;
 		try {
 			JSONArray data = (JSONArray) jsonObject.get("data");
-			Iterator<JSONObject> iterator = data.iterator();
+			Iterator<Object> iterator = data.iterator();
 			while (iterator.hasNext()) {
 				JSONObject responseObj = (JSONObject) iterator.next();
 				String fieldValue = (String) responseObj.get(fieldName);
@@ -30,12 +36,12 @@ public class Forms extends Token {
 
 	public String getFormTemplateByName(String formTemplateName) throws Exception {
 		
-		String baseUrl = getBaseUrl();
+		String baseUrl = Token.getBaseUrl();
 		String query = "[name] eq '" + formTemplateName + "'";		
 		String endpoint = "/formtemplates?q=" + URLEncoder.encode(query, "UTF-8");
 		String request = baseUrl + endpoint;
 		URL url = new URL(request);
-		String auth = getToken();
+		String auth = Token.getToken();
 
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
@@ -62,11 +68,11 @@ public class Forms extends Token {
 	}
 
 	public String getFormTemplateById(String formTemplateId) throws Exception {
-		String baseUrl = getBaseUrl();
+		String baseUrl = Token.getBaseUrl();
 		String endpoint = "/formtemplates/" + formTemplateId;
 		String request = baseUrl + endpoint;
 		URL url = new URL(request);
-		String auth = getToken();
+		String auth = Token.getToken();
 
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
@@ -85,11 +91,11 @@ public class Forms extends Token {
 	}
 
 	public String getFormTemplates(String queryString) throws Exception {
-		String baseUrl = getBaseUrl();
+		String baseUrl = Token.getBaseUrl();
 		String endpoint = "/formtemplates?q=";
 		String request = baseUrl + endpoint;
 		URL url = new URL(request);
-		String auth = getToken();
+		String auth = Token.getToken();
 
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
@@ -110,9 +116,9 @@ public class Forms extends Token {
 	public String getFormData(String formTemplateId, String queryString, String fieldList) throws Exception {
 		
 		String endpoint = "/formtemplates/";
-		String uriScheme = getUriScheme();
-		String uriAuthority = getUriAuthority();
-		String uriPath = getUriPath() + endpoint + formTemplateId + "/forms";
+		String uriScheme = Token.getUriScheme();
+		String uriAuthority = Token.getUriAuthority();
+		String uriPath = Token.getUriPath() + endpoint + formTemplateId + "/forms";
 		String query = "q=" + queryString + "&fields=" + fieldList;
 	
 		URI uri = new URI(uriScheme,uriAuthority,uriPath,query,null);
@@ -139,11 +145,11 @@ public class Forms extends Token {
 	// name is name of folder. description is description of folder.
 	// allowRevisions is a boolean either true or false.
 	public String postFolders(String name, String description, boolean allowRevisions) throws Exception {
-		String baseUrl = getBaseUrl();
+		String baseUrl = Token.getBaseUrl();
 		String endpoint = "/folders";
 		String request = baseUrl + endpoint;
 		URL url = new URL(request);
-		String auth = getToken();
+		String auth = Token.getToken();
 
 		Map<String, Object> params = new LinkedHashMap<>();
 		params.put("name", name);
