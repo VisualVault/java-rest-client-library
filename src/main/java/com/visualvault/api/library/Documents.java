@@ -1,5 +1,6 @@
 package com.visualvault.api.library;
 
+import com.visualvault.api.common.BaseApi;
 import com.visualvault.api.security.ClientCredentials;
 import com.visualvault.api.security.Token;
 import org.apache.commons.io.IOUtils;
@@ -9,19 +10,19 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Documents extends Token {
+public class Documents extends BaseApi {
 
-	public Documents(ClientCredentials clientCredentials) {
-		super(clientCredentials);
+	public Documents(Token token) {
+		super(token);
 	}
 
 	// the deleteDoc method deletes a document by documentId.
 	public String deleteDocument(String id) throws Exception{
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = "/documents/";
 		String request = baseUrl + endpoint + id;
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("DELETE");
@@ -46,11 +47,11 @@ public class Documents extends Token {
 		int end = (endDoc - start);
 		String offset = Integer.toString(start);
 		String limit = Integer.toString(end);
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = "/documents?q=folderpath%20like%20%27/";
 		String request = baseUrl + endpoint + folderPath + "%%27&offset=" + offset + "&limit=" + limit;
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -67,11 +68,11 @@ public class Documents extends Token {
 	// the getDocsName method will return a document by name.
 	// if you are in the UI, document Id is equivalent to name.  
 	public String getDocumentByName(String name) throws Exception{
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = "/documents?q=name%20eq%20%27";
 		String request = baseUrl + endpoint + name + "%27";
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -87,11 +88,11 @@ public class Documents extends Token {
 
 	// the getDocId method requests a document by documentId.
 	public String getDocumentById(String id) throws Exception{
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = "/documents/";
 		String request = baseUrl + endpoint + id;
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -112,11 +113,11 @@ public class Documents extends Token {
 
 	// the getDocId method requests a document by revisionId (aka dhId).
 	public String getDocumentRevision(String revisionId) throws Exception{
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = "/Documents/Revisions/";
 		String request = baseUrl + endpoint + revisionId;
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setRequestMethod("GET");
@@ -139,11 +140,11 @@ public class Documents extends Token {
 
 	// the getDocId method requests a document by document revision id
 	public String getDocumentRevisionOcrProperties(String id) throws Exception{
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = "/documents/" + id + "/ocr";
 		String request = baseUrl + endpoint;
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setRequestMethod("GET");
@@ -175,11 +176,11 @@ public class Documents extends Token {
 	
 			boolean allowNoFile = true;
 			int fileLength = 0;			
-			String baseUrl = Token.getBaseUrl();
+			String baseUrl = token.getBaseUrl();
 			String endpoint = "/documents";
 			String request = baseUrl + endpoint;
 			URL url = new URL(request);
-			String auth = Token.getToken();
+			String auth = token.getToken();
 
 			Map<String,Object> params = new LinkedHashMap<>();
 	        params.put("folderId", folderId);
@@ -222,12 +223,12 @@ public class Documents extends Token {
 
 
 	public String updateDocumentOcrStatus(String id,int ocrOutcomeType,int ocrErrorCode ) throws Exception{
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = String.format("/documents/%s/ocr/status",id);
 
 		String request = baseUrl + endpoint;
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
 		JSONObject params = new JSONObject();
 		params.put("ocrStatus", ocrOutcomeType);

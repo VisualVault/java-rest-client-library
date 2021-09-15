@@ -28,17 +28,17 @@ public class Token {
 	// customerAlias and databaseAlias are the customer and database you would like
 	// to connect to
 
-	static Calendar tokenExpirationDate;
-	static String accessToken;
-	static String refreshToken;
+	Calendar tokenExpirationDate;
+	String accessToken;
+	String refreshToken;
 
-	static ClientCredentials Credentials;
+	ClientCredentials Credentials;
 
 	public Token(ClientCredentials clientCredentials){
 		Credentials = clientCredentials;
 	}
 
-	public static String getToken() throws Exception {
+	public String getToken() throws Exception {
 
 		// If the token has not been fetched or is within 30 seconds of expiration need
 		// to fetch token
@@ -107,26 +107,26 @@ public class Token {
 	}
 
 	// method to get base Url for requests
-	public static String getBaseUrl() {
+	public String getBaseUrl() {
 		String baseUrl = Credentials.Url + "/api/v1/" + Credentials.CustomerAlias + "/" + Credentials.DatabaseAlias;
 		return baseUrl;	}
 
-	public static String getUriScheme() throws URISyntaxException {
+	public String getUriScheme() throws URISyntaxException {
         URI uri = new URI(Credentials.Url);
 		return uri.getScheme();
 	}
 
-	public static String getUriAuthority() throws URISyntaxException {
+	public String getUriAuthority() throws URISyntaxException {
 		URI uri = new URI(Credentials.Url);
 		return uri.getAuthority();
 	}
 
-	public static String getUriPath() {
+	public String getUriPath() {
 		String baseUrl = "/api/v1/" + Credentials.CustomerAlias + "/" + Credentials.DatabaseAlias;
 		return baseUrl;
 	}
 
-	public static Boolean getTokenUsingRefreshToken() throws Exception {
+	public Boolean getTokenUsingRefreshToken() throws Exception {
 
 		URL request = new URL(Credentials.Url + "/oauth/token");
 

@@ -6,6 +6,7 @@ import com.visualvault.api.forms.Forms;
 import com.visualvault.api.library.*;
 import com.visualvault.api.security.ClientCredentials;
 import com.visualvault.api.security.Sites;
+import com.visualvault.api.security.Token;
 import com.visualvault.api.security.Users;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,14 +27,16 @@ class Examples {
                     , ""
                     , ""
                     , "");
+            
+            Token token = new Token(credentials);
 
             // OBJECTS
-            Documents docs = new Documents(credentials); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Docs.java
-            Files files = new Files(credentials); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Filez.java
-            Folders folders = new Folders(credentials); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Folders.java
-            Sites sites = new Sites(credentials); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Sites.java
-            Users users = new Users(credentials); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Users.java
-            Forms forms = new Forms(credentials); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Forms.java
+            Documents docs = new Documents(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Docs.java
+            Files files = new Files(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Filez.java
+            Folders folders = new Folders(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Folders.java
+            Sites sites = new Sites(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Sites.java
+            Users users = new Users(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Users.java
+            Forms forms = new Forms(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Forms.java
             //CustomQuery customQuery = new CustomQuery(); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/CustomQuery.java
 
             // Example Code
