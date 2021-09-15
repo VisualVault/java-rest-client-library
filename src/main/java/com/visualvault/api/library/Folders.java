@@ -1,5 +1,6 @@
 package com.visualvault.api.library;
 
+import com.visualvault.api.common.BaseApi;
 import com.visualvault.api.security.ClientCredentials;
 import com.visualvault.api.security.Token;
 
@@ -7,20 +8,20 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Folders extends Token {
+public class Folders extends BaseApi {
 
-	public Folders(ClientCredentials credentials) {
-		super(credentials);
+	public Folders(Token token) {
+		super(token);
 	}
 
 	// searches a folder by folderpath. folderPath is the folderPath.
 	// if there are spaces in the folder path name use %20 to account for spaces.
 	public String getFolders(String folderPath) throws Exception{
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = "/folders?folderpath=";
 		String request = baseUrl + endpoint + folderPath;
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -40,11 +41,11 @@ public class Folders extends Token {
 
 	// the getFoldersDocs method requests a list of documents in a folder by folderId. 
 	public String getFolderDocuments(String folderId) throws Exception{
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = "/folders/";
 		String request = baseUrl + endpoint + folderId + "/documents";
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
 	    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	    conn.setRequestMethod("GET");
@@ -66,11 +67,11 @@ public class Folders extends Token {
 	// name is name of folder. description is description of folder.
 	// allowRevisions is a boolean either true or false. 
 	public String createFolder(String name, String description, boolean allowRevisions) throws Exception{
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = "/folders";
 		String request = baseUrl + endpoint;
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
 		Map<String,Object> params = new LinkedHashMap<>();
         params.put("name", name);

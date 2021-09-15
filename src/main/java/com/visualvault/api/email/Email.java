@@ -1,6 +1,6 @@
 package com.visualvault.api.email;
 
-import com.visualvault.api.security.ClientCredentials;
+import com.visualvault.api.common.BaseApi;
 import com.visualvault.api.security.Token;
 
 import java.io.*;
@@ -8,10 +8,10 @@ import java.net.*;
 import java.util.*;
 
 // com.visualvault.api.email.Emails Class
-public class Email extends Token {
-
-    public Email(ClientCredentials clientCredentials) {
-        super(clientCredentials);
+public class Email extends BaseApi{
+	
+    public Email(Token token) {
+        super(token);
     }
 
     // the postEmails method sends an email to users.
@@ -20,11 +20,11 @@ public class Email extends Token {
     // for sending emails to multiple people use commas between the names
     // of the recipients and ccRecipients. 
     public String sendMessage(String recipients, String ccRecipients, String subject, String body) throws Exception{
-		String baseUrl = Token.getBaseUrl();
+		String baseUrl = token.getBaseUrl();
 		String endpoint = "/emails";
 		String request = baseUrl + endpoint;
 		URL url = new URL(request);
-		String auth = Token.getToken();
+		String auth = token.getToken();
 
 		Map<String,Object> params = new LinkedHashMap<>();
         params.put("recipients", recipients);

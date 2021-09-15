@@ -3,19 +3,22 @@ package com.visualvault.api.security;
 import java.io.*;
 import java.net.*;
 
+import com.visualvault.api.common.BaseApi;
+
 // SITES CLASS
-public class Sites extends Token {
-        public Sites(ClientCredentials credentials) {
-                super(credentials);
-        }
+public class Sites extends BaseApi {
+	
+    public Sites(Token token) {
+    	super(token);
+    }
 
         // getSites() returns a list of all sites.
 	public String getSites() throws Exception{        
-        String baseUrl = Token.getBaseUrl();
+        String baseUrl = token.getBaseUrl();
         String endpoint = "/sites";
         String request = baseUrl + endpoint;
         URL url = new URL(request);
-        String auth = Token.getToken();
+        String auth = token.getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
@@ -35,11 +38,11 @@ public class Sites extends Token {
 
 	// getSitesId() returns a site by siteId.
 	public String getSitesId(String id) throws Exception{        
-        String baseUrl = Token.getBaseUrl();
+        String baseUrl = token.getBaseUrl();
         String endpoint = "/sites/";
         String request = baseUrl + endpoint + id;
         URL url = new URL(request);
-        String auth = Token.getToken();
+        String auth = token.getToken();
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");

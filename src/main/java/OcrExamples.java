@@ -3,6 +3,8 @@ import java.util.Iterator;
 
 import com.visualvault.api.library.*;
 import com.visualvault.api.security.ClientCredentials;
+import com.visualvault.api.security.Token;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -28,10 +30,11 @@ class OcrExamples {
 
         try {
 
+        	Token token = new Token(credentials);
             // Initialize API classes
-            Documents docs = new Documents(credentials); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Docs.java
-            Files files = new Files(credentials); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Filez.java
-            Folders folders = new Folders(credentials); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Folders.java
+            Documents docs = new Documents(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Docs.java
+            Files files = new Files(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Filez.java
+            Folders folders = new Folders(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Folders.java
 
             String dhId = "cfc35f5c-9710-eb11-a9bc-ac23c951c6ed"; //doc revision Id that OCR was completed for
 
