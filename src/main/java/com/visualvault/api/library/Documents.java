@@ -3,6 +3,7 @@ package com.visualvault.api.library;
 import com.visualvault.api.security.ClientCredentials;
 import com.visualvault.api.security.Token;
 import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.net.*;
@@ -221,9 +222,6 @@ public class Documents extends Token {
 
 
 	public String updateDocumentOcrStatus(String id,int ocrOutcomeType,int ocrErrorCode ) throws Exception{
-
-		boolean allowNoFile = true;
-		int fileLength = 0;
 		String baseUrl = Token.getBaseUrl();
 		String endpoint = String.format("/documents/%s/ocr/status",id);
 
@@ -231,29 +229,21 @@ public class Documents extends Token {
 		URL url = new URL(request);
 		String auth = Token.getToken();
 
-		Map<String,Object> params = new LinkedHashMap<>();
-		params.put("ocrStatus ", ocrOutcomeType);
-		params.put("ocrErrorCode ", ocrErrorCode);
-
-		StringBuilder postData = new StringBuilder();
-		for (Map.Entry<String,Object> param : params.entrySet()) {
-			if (postData.length() != 0) postData.append('&');
-			postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-			postData.append('=');
-			postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-		}
-
-		byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+		JSONObject params = new JSONObject();
+		params.put("ocrStatus", ocrOutcomeType);
+		params.put("ocrErrorCode", ocrErrorCode);
 
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setRequestMethod("PUT");
 		conn.setRequestProperty("Authorization", "Bearer " + auth);
+		conn.setRequestProperty("Content-Type", "application/json");
 		conn.setDoOutput(true);
-		conn.getOutputStream().write(postDataBytes);
-
+		OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+		wr.write(params.toString());
+		wr.flush();
+		wr.close();
 		String response = IOUtils.toString(conn.getInputStream(), "UTF-8");
 		response = response.replaceAll("\\r\\n|\\r|\\n", " ");
-
 		return response;
 
 	}
