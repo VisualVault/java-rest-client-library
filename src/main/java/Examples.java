@@ -1,5 +1,6 @@
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Iterator;
 
 import com.visualvault.api.forms.Forms;
@@ -19,7 +20,6 @@ class Examples {
     public static void main(String[] args) throws Exception {
 
         try {
-
             ClientCredentials credentials = new ClientCredentials("https://demo.visualvault.com"
                     , ""
                     , ""
@@ -31,18 +31,18 @@ class Examples {
             Token token = new Token(credentials);
 
             // OBJECTS
-            Documents docs = new Documents(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Docs.java
-            Files files = new Files(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Filez.java
-            Folders folders = new Folders(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Folders.java
-            Sites sites = new Sites(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Sites.java
-            Users users = new Users(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Users.java
-            Forms forms = new Forms(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Forms.java
-            //CustomQuery customQuery = new CustomQuery(); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/CustomQuery.java
+            Documents docs = new Documents(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/library/Documents.java
+            Files files = new Files(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/library/Files.java
+            Folders folders = new Folders(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/library/Folders.java
+            Sites sites = new Sites(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/security/Sites.java
+            Users users = new Users(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/security/Users.java
+            Forms forms = new Forms(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/forms/Forms.java
+            //CustomQuery customQuery = new CustomQuery(); //
 
             // Example Code
             // IMPORTANT! The examples below use the classes located at
             // https://github.com/VisualVault/java-rest-client-library
-            // Each endpoint's .java file may contain additional functionality not shown in
+            // Each endpoint's .java file may contain additional functionality not shown in here.
 
             // IMPORTANT! Each API call returns a data object. Each data object's list of fields
             // documented here:
@@ -137,7 +137,48 @@ class Examples {
 
             files.uploadFile(documentId,"1", "java practice", "Released", "{}", fileName, filePath, "text/csv",
                     "UTF-8");
+            
+            // GET FOLDER DOCUMENTS
+            // To get document(s) from a folder, you can first make a call to the Documents.getFolderDocuments method, specifying the parameters below:
+            //
+            // Parameters:
+            // folderPath: The path of a folder in VisualVault. In this case we are using the javaExampleFolder
+            // startDoc: The starting document to obtain
+            // endDoc: The ending document to obtain
+            // In this case, startDoc and endDoc are set to just get one document from the method.
+            String documentGetResponse = docs.getFolderDocuments("javaExampleFolder", 1, 1);
+                
+            // GET FILE
+            // To get a file, we first need to get the ID of the document/file we want to download from VisualVault.
+            // In the code above, we have already obtained the record of a document in the javaExampleFolder folder that we can download.
+            // All we need to do is get the ID and then pass it along with a path in the local file system to the Files.getFile method to
+            // download the file.
+            //
+            // Parameters:
+            // id: ID of the document to download, obtained below from the response of Documents.getFolderDocuments
+            // filePath: Path in local file system where the file is to be saved
+            String downloadDocumentId = parseArrayResponse(documentGetResponse, "id"); //Get document's ID from the response obtained in the code above.
+            
+            String downloadFilePath = new File(".").getCanonicalPath() + "\\download.txt"; //Build a string with a local path where the file should be saved.
+            
+            files.getFile(downloadDocumentId, downloadFilePath); //Make call to download file from VisualVault and save in the specified path.
 
+            // GET FILE BYTE ARRAY
+            // Instead of directly saving the file to the file system, you can also get it as a byte array, which can be written
+            // to the file system later. To do so, make a call to Files.getFileByteArray, passing in the document's ID.
+            //
+            // Parameters:
+            // id: ID of the document to download, obtained previously from the response of Documents.getFolderDocuments
+            
+            byte[] downloadedFileByteArray = files.getFileByteArray(downloadDocumentId); //Get file's byte array
+            
+            String byteArrayFilePath = new File(".").getCanonicalPath() + "\\downloadBytes.txt"; //Path to write byte array to
+            
+            // Write byte array to file system as a file
+            try (FileOutputStream fos = new FileOutputStream(byteArrayFilePath)) {
+            	   fos.write(downloadedFileByteArray);
+            }
+            
             // CHECK IF USER ACCOUNT EXISTS
             // Important! All user accounts belong to a 'Site'. Most use cases can simply
             // use the Site name 'Home' which is a system generated Site.
