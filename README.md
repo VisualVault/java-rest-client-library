@@ -11,7 +11,7 @@ WELCOME TO THE JAVA VISUALVAULT REST API CLIENT LIBRARY
 
 * Clone this repository or reference the jar file located at /classes/artifacts/
 
-* Example code for interacting with the VisualVault REST API is located in src/examples.java
+* Example code for interacting with the VisualVault REST API is located in src/main/java/Examples.java
 
 * Each VisualVault endpoint has a java helper class which constructs the http GET,POST,PUT,DELETE calls
 
