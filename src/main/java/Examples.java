@@ -20,6 +20,14 @@ class Examples {
     public static void main(String[] args) throws Exception {
 
         try {
+            //String url, 
+            //String clientId, 
+            //String clientSecret, 
+            //String userName, 
+            //String password, 
+            //String customerAlias, 
+            //String databaseAlias
+                                  
             ClientCredentials credentials = new ClientCredentials("https://demo.visualvault.com"
                     , ""
                     , ""
