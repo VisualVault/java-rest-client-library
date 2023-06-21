@@ -2,7 +2,6 @@
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Iterator;
-
 import com.visualvault.api.forms.Forms;
 import com.visualvault.api.library.*;
 import com.visualvault.api.security.ClientCredentials;
@@ -13,11 +12,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-// EXAMPLES CLASS
-class Examples {
-
-    // main method
-    public static void main(String[] args) throws Exception {
+public class Examples {
+    
+    public void TestExamples(String[] args) throws Exception {
 
         try {
             //String url, 
@@ -39,14 +36,13 @@ class Examples {
             Token token = new Token(credentials);
 
             // OBJECTS
-            Documents docs = new Documents(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/library/Documents.java
-            Files files = new Files(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/library/Files.java
-            Folders folders = new Folders(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/library/Folders.java
-            Sites sites = new Sites(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/security/Sites.java
-            Users users = new Users(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/security/Users.java
-            Forms forms = new Forms(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/src/main/java/com/visualvault/api/forms/Forms.java
-            //CustomQuery customQuery = new CustomQuery(); //
-
+            Documents docs = new Documents(token);
+            Files files = new Files(token);
+            Folders folders = new Folders(token);
+            Sites sites = new Sites(token);
+            Users users = new Users(token);
+            Forms forms = new Forms(token);
+        
             // Example Code
             // IMPORTANT! The examples below use the classes located at
             // https://github.com/VisualVault/java-rest-client-library
@@ -87,6 +83,7 @@ class Examples {
 
             //make http request for matching forms
             String response = forms.getFormData(formTemplateId, query, fieldList);
+            System.out.println(response);
 
             // CREATE A FOLDER OR GET A FOLDER (if path does not exist), Gets a Folder (if
             // path does exist)
@@ -124,7 +121,7 @@ class Examples {
             String documentId = parseArrayResponse(documentResponse, "documentId");
 
             // GET DOCUMENT NAME FROM SERVER RESPONSE (response is a JSON document)
-            String docName = parseArrayResponse(documentResponse, "name");
+            //String docName = parseArrayResponse(documentResponse, "name");
 
             // uploadFile uploads a file and attaches it to an existing Document as a new file revision
             // OR replaces a file revision depending upon the CheckInState parameter value.

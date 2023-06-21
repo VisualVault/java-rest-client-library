@@ -12,11 +12,40 @@ public class Users extends BaseApi{
     	super(token);
     }
 
-    // the getUsersUsId method requests a user by userId. userId is the userId of the user.
-	public String getUsersUsId(String userId) throws Exception{		
+    // getUserId returns a user's id value.      
+    // https://docs.visualvault.com/docs/data-types#user
+    public String getUserId(String userName) throws Exception{		
+        return getUsersUsId(userName);
+    }
+
+	public String getUsersUsId(String userName) throws Exception{		
 		String baseUrl = token.getBaseUrl();
 		String endpoint = "/users?q=userId%20eq%20%27";
-		String request = baseUrl + endpoint + userId + "%27";
+		String request = baseUrl + endpoint + userName + "%27";
+		URL url = new URL(request);
+		String auth = token.getToken();
+
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-Type", "application/JSON");
+        conn.setRequestProperty("Authorization", "Bearer " + auth);
+        conn.setDoOutput(true);
+
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+        String response = "";
+        for (int c = in.read(); c != -1; c = in.read())
+            response += (char)c;
+
+        System.out.println(response);
+        
+        return response;		
+	}
+
+    //https://docs.visualvault.com/docs/users-2#get-usersidwebtoken
+    public String getUserLoginToken(String id) throws Exception{		
+		String baseUrl = token.getBaseUrl();
+		String endpoint = String.format("//users/%s/webToken",id);
+		String request = baseUrl + endpoint;
 		URL url = new URL(request);
 		String auth = token.getToken();
 

@@ -10,8 +10,6 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import static java.lang.Math.toIntExact;
-
 public class Token {
 	// Set Url and API credentials here used to request an access token
 	// For the Url variable, do not end Url with a "/".

@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "VisualVaultTests",
+            "request": "launch",
+            "mainClass": "VisualVaultTests",
+            "projectName": "api"
+        },
+        {
+            "type": "java",
+            "name": "UserLoginToken",
+            "request": "launch",
+            "mainClass": "UserLoginToken",
+            "projectName": "api"
+        },
+        {
+            "type": "java",
+            "name": "Examples",
+            "request": "launch",
+            "mainClass": "Examples",
+            "projectName": "api"
+        },
+        {
+            "type": "java",
+            "name": "Examples",
+            "request": "launch",
+            "mainClass": "Examples",
+            "projectName": "java-rest-client-library"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        }
+    ]
+}

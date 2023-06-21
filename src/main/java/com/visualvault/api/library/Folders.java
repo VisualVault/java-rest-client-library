@@ -1,7 +1,6 @@
 package com.visualvault.api.library;
 
 import com.visualvault.api.common.BaseApi;
-import com.visualvault.api.security.ClientCredentials;
 import com.visualvault.api.security.Token;
 
 import java.io.*;

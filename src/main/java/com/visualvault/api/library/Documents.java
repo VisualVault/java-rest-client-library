@@ -1,14 +1,13 @@
 package com.visualvault.api.library;
 
 import com.visualvault.api.common.BaseApi;
-import com.visualvault.api.security.ClientCredentials;
 import com.visualvault.api.security.Token;
-import org.apache.commons.io.IOUtils;
-import org.json.JSONObject;
-
 import java.io.*;
+import org.json.JSONObject;
 import java.net.*;
 import java.util.*;
+import org.apache.commons.io.IOUtils;
+
 
 public class Documents extends BaseApi {
 

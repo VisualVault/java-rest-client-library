@@ -1,13 +1,13 @@
 package com.visualvault.api.security;
 
 public class ClientCredentials {
-    public static String Url = "";
-    public static String ClientId = "";
-    public static String ClientSecret = "";
-    public static String UserName = "";
-    public static String Password = "";
-    public static String CustomerAlias = "";
-    public static String DatabaseAlias = "";
+    public String Url = "";
+    public String ClientId = "";
+    public String ClientSecret = "";
+    public String UserName = "";
+    public String Password = "";
+    public String CustomerAlias = "";
+    public String DatabaseAlias = "";
 
     public ClientCredentials(){
 

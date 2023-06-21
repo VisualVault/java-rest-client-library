@@ -5,7 +5,6 @@ import java.net.*;
 import java.util.*;
 
 import com.visualvault.api.common.BaseApi;
-import com.visualvault.api.security.ClientCredentials;
 import com.visualvault.api.security.Token;
 import org.json.JSONArray;
 import org.json.JSONObject;

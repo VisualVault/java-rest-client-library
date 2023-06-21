@@ -9,19 +9,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-// EXAMPLES CLASS
-class OcrExamples {
-
-    // main method
-    public static void main(String[] args) throws Exception {
+public class OcrExamples {
+    
+    public void TestOcrExamples(String[] args) throws Exception {
 
         ClientCredentials credentials = new ClientCredentials("https://demo2.visualvault.com"
-                , "0fd0553c-2a9f-439c-bf11-de7bbf5412d9"
-                , "9QY4FKVCIlbUoGRFdNbUnsLkYZuHXFVo3TdmWHYhPd8="
-                , "0fd0553c-2a9f-439c-bf11-de7bbf5412d9"
-                , "9QY4FKVCIlbUoGRFdNbUnsLkYZuHXFVo3TdmWHYhPd8="
-                , "FLDCF"
-                , "HR");
+                , ""
+                , ""
+                , ""
+                , ""
+                , ""
+                , "");
 
         processCompletedOcrDocument(credentials);
     }
@@ -32,17 +30,17 @@ class OcrExamples {
 
         	Token token = new Token(credentials);
             // Initialize API classes
-            Documents docs = new Documents(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Docs.java
-            Files files = new Files(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Filez.java
-            Folders folders = new Folders(token); // https://github.com/VisualVault/java-rest-client-library/blob/master/endpoints/Folders.java
+            Documents docs = new Documents(token);
+            Files files = new Files(token);
+            //Folders folders = new Folders(token);
 
             String dhId = "cfc35f5c-9710-eb11-a9bc-ac23c951c6ed"; //doc revision Id that OCR was completed for
 
             //get the document revision that OCR was completed for and assign variable values needed for updating the document's OCR status
             String docRevisionResponse = docs.getDocumentRevision(dhId); //dhId is the revision specific Id
-            String folderId = parseResponse(docRevisionResponse, "folderId");
+            //String folderId = parseResponse(docRevisionResponse, "folderId");
             String currentRevision = parseResponse(docRevisionResponse, "revision");
-            String docName = parseResponse(docRevisionResponse, "name");  //aka dhDocId
+            //String docName = parseResponse(docRevisionResponse, "name");  //aka dhDocId
             String documentId = parseResponse(docRevisionResponse, "documentId"); //the revision neutral Document Id aka DlId
             String fileName = parseResponse(docRevisionResponse, "fileName");
             String contentType = parseResponse(docRevisionResponse, "contentType");
@@ -50,7 +48,7 @@ class OcrExamples {
 
             //get the document revision's current OCR status from VisualVault
             String ocrResponse = docs.getDocumentRevisionOcrProperties("cfc35f5c-9710-eb11-a9bc-ac23c951c6ed");
-            OcrStatus ocrStatus = OcrStatus.fromString(parseResponse(ocrResponse, "ocrStatus"));
+            //OcrStatus ocrStatus = OcrStatus.fromString(parseResponse(ocrResponse, "ocrStatus"));
             OcrType ocrType = OcrType.fromString(parseResponse(ocrResponse, "ocrType"));
             DocumentCheckInState checkInState = DocumentCheckInState.Released;
 
@@ -73,7 +71,7 @@ class OcrExamples {
             }
 
             //set the new OCR status value
-            OcrOutcomeType ocrOutcomeType = OcrOutcomeType.Success;
+            //OcrOutcomeType ocrOutcomeType = OcrOutcomeType.Success;
 
             String sourceFilePath = "";
 
