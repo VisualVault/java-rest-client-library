@@ -9,19 +9,12 @@ public class UserLoginTokenExamples {
 
     public String GetUserLoginToken(String[] args) throws Exception {
 
-        String url = "https://statefundcadev.visualvault.com";
-        String clientId = "29e71b96-2a5e-4a0e-bf36-c2d3bb717362";
-        String clientSecret = "pw7dX38wZctRZQ8QYO3LQfhSmi451suiX7rMOB7Ryq4=";       
-        String customerAlias = "statefund";
-        String databaseAlias = "Main";
-        String userName = "statefund.api";
-
-        // String url = "https://vv5dev.visualvault.com";
-        // String clientId = "d0be3b89-05a6-4dc1-8af4-5e121e0b1e25";
-        // String clientSecret = "R+pdcG4bJoBjW1vmH83nWmTYhMviNK9DlDRErORg1LU=";       
-        // String customerAlias = "statefund";
-        // String databaseAlias = "Main";
-        // String userName = "statefund.api";
+        String url = "https://demo.visualvault.com";
+        String clientId = "";
+        String clientSecret = "";       
+        String customerAlias = "";
+        String databaseAlias = "";
+        String userName = "";      
 
         String loginToken = "";
 
